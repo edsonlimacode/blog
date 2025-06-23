@@ -12,6 +12,7 @@ export async function PostList() {
           key={post.id}
           imageCover={post.coverImageUrl}
           title={post.title}
+          slug={post.slug}
           date={post.createdAt}
           content={post.content}
         />

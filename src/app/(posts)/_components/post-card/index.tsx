@@ -1,32 +1,55 @@
+import clsx from "clsx"
 import Image from "next/image"
+import Link from "next/link"
 
 type PostCardProps = {
   title: string
   imageCover: string
   date: string
   content: string
+  slug: string
+  isSinglePost?: boolean
 }
 
-export function PostCard({ title, imageCover, content, date }: PostCardProps) {
+export function PostCard({
+  title,
+  imageCover,
+  content,
+  date,
+  slug,
+  isSinglePost = false
+}: PostCardProps) {
   return (
     <article className="w-full">
       <Image
         src={imageCover}
-        alt=""
+        alt={title}
         width={700}
         height={700}
-        className="rounded-lg object-cover"
+        className="w-full rounded-lg object-cover"
         priority
         quality={100}
       />
       <div className="flex flex-col gap-2 py-2">
-        <h2 className="line-clamp-2 text-2xl font-bold text-zinc-900">
-          {title}
-        </h2>
+        <Link href={`/post/${slug}`}>
+          <h2
+            className={clsx("line-clamp-2 text-2xl font-bold text-zinc-900", {
+              "text-4xl": isSinglePost
+            })}
+          >
+            {title}
+          </h2>
+        </Link>
         <time dateTime={date} className="text-zinc-500">
           {date}
         </time>
-        <p className="line-clamp-5 text-zinc-600">{content}</p>
+        <p
+          className={clsx("text-zinc-600", {
+            "line-clamp-3": !isSinglePost
+          })}
+        >
+          {content}
+        </p>
       </div>
     </article>
   )
