@@ -1,5 +1,22 @@
 import { getPostByslug } from "@/lib/queries"
-import { PostCard } from "../../_components/post-card"
+import { Metadata } from "next"
+import { SinglePostContent } from "./_components/single-post-content"
+import { Suspense } from "react"
+import { SinglePostSkeleton } from "./_components/single-post-content/single-post-skeleton"
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+
+  const post = await getPostByslug(slug)
+  return {
+    title: post.title,
+    description: post.excerpt
+  }
+}
 
 export default async function SinglePost({
   params
@@ -8,16 +25,9 @@ export default async function SinglePost({
 }) {
   const { slug } = await params
 
-  const post = await getPostByslug(slug)
-
   return (
-    <PostCard
-      isSinglePost
-      title={post.title}
-      imageCover={post.coverImageUrl}
-      content={post.content}
-      slug={post.slug}
-      date={post.createdAt}
-    />
+    <Suspense fallback={<SinglePostSkeleton />}>
+      <SinglePostContent slug={slug} />
+    </Suspense>
   )
 }

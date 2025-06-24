@@ -1,6 +1,7 @@
 import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
+import { ShowMarkDown } from "./show-markdown"
 
 type PostCardProps = {
   title: string
@@ -43,13 +44,13 @@ export function PostCard({
         <time dateTime={date} className="text-zinc-500">
           {date}
         </time>
-        <p
+        <div
           className={clsx("text-zinc-600", {
             "line-clamp-3": !isSinglePost
           })}
         >
-          {content}
-        </p>
+          <ShowMarkDown content={content} />
+        </div>
       </div>
     </article>
   )
