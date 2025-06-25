@@ -1,5 +1,6 @@
 import { getAllPublicPosts } from "@/lib/queries"
 import { PostCard } from "../post-card"
+import { formatDate } from "@/utils/format-date"
 
 export async function Postsummary() {
   const posts = await getAllPublicPosts()

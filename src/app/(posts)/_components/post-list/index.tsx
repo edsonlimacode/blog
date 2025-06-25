@@ -1,6 +1,7 @@
 import { postRepository } from "@/repositories/PostRepositoryLocal"
 import { PostCard } from "../post-card"
 import { getAllPublicPosts } from "@/lib/queries"
+import { formatDate } from "@/utils/format-date"
 
 export async function PostList() {
   const posts = await getAllPublicPosts()

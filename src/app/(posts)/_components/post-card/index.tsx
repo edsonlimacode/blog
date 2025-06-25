@@ -2,6 +2,7 @@ import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
 import { ShowMarkDown } from "./show-markdown"
+import { formatDate } from "@/utils/format-date"
 
 type PostCardProps = {
   title: string
@@ -42,7 +43,7 @@ export function PostCard({
           </h2>
         </Link>
         <time dateTime={date} className="text-zinc-500">
-          {date}
+          {formatDate(date)}
         </time>
         <div
           className={clsx("text-zinc-600", {
