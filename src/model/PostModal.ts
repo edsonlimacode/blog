@@ -1,12 +1,12 @@
 export type PostModal = {
-  id: string
+  id: string | null
   title: string
   slug: string
   excerpt: string
   content: string
   coverImageUrl: string
-  published: boolean
-  createdAt: string
-  updatedAt: string
+  published: boolean | null
+  createdAt: Date
+  updatedAt: Date
   author: string
 }

@@ -3,7 +3,7 @@ import { IPostRepository } from "./IPostRepository"
 import { resolve } from "path"
 import { readFile } from "fs/promises"
 
-export class PostRepository implements IPostRepository {
+export class PostRepositoryLocal implements IPostRepository {
   private async loadFromDisk(): Promise<PostModal[]> {
     const path = resolve(process.cwd(), "src", "db", "seed", "posts.json")
 
@@ -36,4 +36,4 @@ export class PostRepository implements IPostRepository {
   }
 }
 
-export const postRepository: IPostRepository = new PostRepository()
+export const postRepository: IPostRepository = new PostRepositoryLocal()

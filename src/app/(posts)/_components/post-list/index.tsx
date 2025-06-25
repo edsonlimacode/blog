@@ -1,4 +1,4 @@
-import { postRepository } from "@/repositories/PostRepositoryImpl"
+import { postRepository } from "@/repositories/PostRepositoryLocal"
 import { PostCard } from "../post-card"
 import { getAllPublicPosts } from "@/lib/queries"
 
@@ -13,7 +13,7 @@ export async function PostList() {
           imageCover={post.coverImageUrl}
           title={post.title}
           slug={post.slug}
-          date={post.createdAt}
+          date={post.createdAt.toISOString()}
           content={post.content}
         />
       ))}

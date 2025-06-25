@@ -7,7 +7,7 @@ CREATE TABLE "posts" (
 	"content" varchar NOT NULL,
 	"coverImageUrl" varchar NOT NULL,
 	"published" boolean DEFAULT true,
-	"createAt" timestamp DEFAULT now() NOT NULL,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "posts_slug_unique" UNIQUE("slug")
 );

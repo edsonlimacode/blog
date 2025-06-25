@@ -10,7 +10,7 @@ export const postsTable = pgTable("posts", {
   content: varchar().notNull(),
   coverImageUrl: varchar().notNull(),
   published: boolean().default(true),
-  createAt: timestamp({ withTimezone: false }).defaultNow().notNull(),
+  createdAt: timestamp({ withTimezone: false }).defaultNow().notNull(),
   updatedAt: timestamp({ withTimezone: false }).defaultNow().notNull()
 })
 

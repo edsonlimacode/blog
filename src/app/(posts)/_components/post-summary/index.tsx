@@ -14,7 +14,7 @@ export async function Postsummary() {
         slug={postSummaryFirst.slug}
         imageCover={postSummaryFirst.coverImageUrl}
         title={postSummaryFirst.title}
-        date={postSummaryFirst.createdAt}
+        date={postSummaryFirst.createdAt.toISOString()}
         content={postSummaryFirst.content}
       />
       <PostCard
@@ -22,7 +22,7 @@ export async function Postsummary() {
         slug={postSummarySecond.slug}
         imageCover={postSummarySecond.coverImageUrl}
         title={postSummarySecond.title}
-        date={postSummarySecond.createdAt}
+        date={postSummarySecond.createdAt.toISOString()}
         content={postSummarySecond.content}
       />
     </section>
