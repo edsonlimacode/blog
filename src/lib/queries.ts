@@ -1,14 +1,34 @@
 import { postRepositoryDb } from "@/repositories/PostRepositoryDb"
-import { cache } from "react"
+import { unstable_cache } from "next/cache"
 
-export const getAllPublicPosts = cache(async () => {
-  return await postRepositoryDb.findAllPublic()
-})
+export const getAllPublicPosts = unstable_cache(
+  async () => {
+    return await postRepositoryDb.findAllPublic()
+  },
+  ["posts"],
+  {
+    tags: ["posts"]
+  }
+)
 
-export const getPostById = cache(async (id: string) => {
-  return await postRepositoryDb.findById(id)
-})
+export const getPostById = (id: string) =>
+  unstable_cache(
+    async (id: string) => {
+      return await postRepositoryDb.findById(id)
+    },
+    ["post"],
+    {
+      tags: [`post-${id}`]
+    }
+  )(id)
 
-export const getPostByslug = cache(async (slug: string) => {
-  return await postRepositoryDb.findBySlug(slug)
-})
+export const getPostByslug = (slug: string) =>
+  unstable_cache(
+    async (slug: string) => {
+      return await postRepositoryDb.findBySlug(slug)
+    },
+    ["post"],
+    {
+      tags: [`post-${slug}`]
+    }
+  )(slug)

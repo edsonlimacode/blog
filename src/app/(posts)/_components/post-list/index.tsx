@@ -1,7 +1,5 @@
-import { postRepository } from "@/repositories/PostRepositoryLocal"
 import { PostCard } from "../post-card"
 import { getAllPublicPosts } from "@/lib/queries"
-import { formatDate } from "@/utils/format-date"
 
 export async function PostList() {
   const posts = await getAllPublicPosts()
@@ -14,7 +12,7 @@ export async function PostList() {
           imageCover={post.coverImageUrl}
           title={post.title}
           slug={post.slug}
-          date={post.createdAt.toISOString()}
+          date={post.createdAt.toString()}
           content={post.content}
         />
       ))}

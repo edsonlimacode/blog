@@ -4,6 +4,8 @@ import { SinglePostContent } from "./_components/single-post-content"
 import { Suspense } from "react"
 import { SinglePostSkeleton } from "./_components/single-post-content/single-post-skeleton"
 
+export const dynamic = "force-static"
+
 export async function generateMetadata({
   params
 }: {

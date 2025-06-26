@@ -11,7 +11,7 @@ export async function SinglePostContent({ slug }: { slug: string }) {
         imageCover={post.coverImageUrl}
         content={post.content}
         slug={post.slug}
-        date={post.createdAt.toISOString()}
+        date={post.createdAt.toString()}
       />
     </div>
   )
