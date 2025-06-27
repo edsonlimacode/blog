@@ -1,3 +1,11 @@
+import { Suspense } from "react"
+import { PostsList } from "./_components/posts-list"
+import { Spinner } from "@/components/spinner"
+
 export default function Posts() {
-  return <div>posts</div>
+  return (
+    <Suspense fallback={<Spinner />}>
+      <PostsList />
+    </Suspense>
+  )
 }
