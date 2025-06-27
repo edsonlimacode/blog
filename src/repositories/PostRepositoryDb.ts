@@ -11,6 +11,15 @@ export class PostRepositoryDb implements IPostRepository {
 
     return posts
   }
+
+  async findAll(): Promise<PostModal[]> {
+    const posts = await db.query.posts.findMany({
+      orderBy: (posts, { desc }) => desc(posts.createdAt)
+    })
+
+    return posts
+  }
+
   async findById(id: string): Promise<PostModal> {
     const post = await db.query.posts.findFirst({
       where: (posts, { eq }) => eq(posts.id, id)
@@ -22,6 +31,7 @@ export class PostRepositoryDb implements IPostRepository {
 
     return post
   }
+
   async findBySlug(slug: string): Promise<PostModal> {
     const post = await db.query.posts.findFirst({
       where: (posts, { eq }) => eq(posts.slug, slug)

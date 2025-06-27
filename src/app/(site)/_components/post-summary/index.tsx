@@ -1,4 +1,4 @@
-import { getAllPublicPosts } from "@/lib/queries"
+import { getAllPublicPosts } from "@/lib/queries_site"
 import { PostCard } from "../post-card"
 import { formatDate } from "@/utils/format-date"
 

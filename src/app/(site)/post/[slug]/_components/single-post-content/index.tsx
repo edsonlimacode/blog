@@ -1,5 +1,5 @@
 import { PostCard } from "@/app/(site)/_components/post-card"
-import { getPostByslug } from "@/lib/queries"
+import { getPostByslug } from "@/lib/queries_site"
 
 export async function SinglePostContent({ slug }: { slug: string }) {
   const post = await getPostByslug(slug)

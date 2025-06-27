@@ -1,4 +1,4 @@
-import { getPostByslug } from "@/lib/queries"
+import { getPostByslug } from "@/lib/queries_site"
 import { Metadata } from "next"
 import { SinglePostContent } from "./_components/single-post-content"
 import { Suspense } from "react"
