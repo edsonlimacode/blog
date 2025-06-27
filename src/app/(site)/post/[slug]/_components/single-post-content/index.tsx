@@ -1,4 +1,4 @@
-import { PostCard } from "@/app/(posts)/_components/post-card"
+import { PostCard } from "@/app/(site)/_components/post-card"
 import { getPostByslug } from "@/lib/queries"
 
 export async function SinglePostContent({ slug }: { slug: string }) {

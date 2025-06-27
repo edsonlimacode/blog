@@ -1,5 +1,5 @@
-import { PostCard } from "../post-card"
 import { getAllPublicPosts } from "@/lib/queries"
+import { PostCard } from "../post-card"
 
 export async function PostList() {
   const posts = await getAllPublicPosts()
