@@ -1,5 +1,4 @@
 import { postRepositoryDb } from "@/repositories/PostRepositoryDb"
-import { Trash2Icon } from "lucide-react"
 import { BtnDeletePost } from "./_components/btn-delete-post"
 export async function PostsList() {
   const posts = await postRepositoryDb.findAll()
