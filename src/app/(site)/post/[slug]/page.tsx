@@ -15,8 +15,8 @@ export async function generateMetadata({
 
   const post = await getPostByslug(slug)
   return {
-    title: post.title,
-    description: post.excerpt
+    title: post?.title,
+    description: post?.excerpt
   }
 }
 

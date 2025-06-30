@@ -20,26 +20,18 @@ export class PostRepositoryDb implements IPostRepository {
     return posts
   }
 
-  async findById(id: string): Promise<PostModal> {
+  async findById(id: string): Promise<PostModal | undefined> {
     const post = await db.query.posts.findFirst({
       where: (posts, { eq }) => eq(posts.id, id)
     })
 
-    if (!post) {
-      throw new Error("Post não encontrado!")
-    }
-
     return post
   }
 
-  async findBySlug(slug: string): Promise<PostModal> {
+  async findBySlug(slug: string): Promise<PostModal | undefined> {
     const post = await db.query.posts.findFirst({
       where: (posts, { eq }) => eq(posts.slug, slug)
     })
-
-    if (!post) {
-      throw new Error("Post não encontrado!")
-    }
 
     return post
   }
