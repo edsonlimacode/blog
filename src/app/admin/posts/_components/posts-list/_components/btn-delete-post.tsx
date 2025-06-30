@@ -1,9 +1,9 @@
 "use client"
 
+import clsx from "clsx"
 import { Trash2Icon } from "lucide-react"
 import { useState, useTransition } from "react"
 import { deletePostAction } from "../../../_actions/delete-post-action"
-import clsx from "clsx"
 import { Dialog } from "@/app/admin/_components/dialog"
 import { toast } from "sonner"
 

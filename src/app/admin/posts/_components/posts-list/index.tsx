@@ -4,7 +4,7 @@ export async function PostsList() {
   const posts = await postRepositoryDb.findAll()
 
   return (
-    <div className="mt-10">
+    <div>
       {posts.map((post) => {
         return (
           <div

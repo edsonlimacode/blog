@@ -8,10 +8,13 @@ export async function Postsummary() {
   const postSummaryFirst = posts[0]
   const postSummarySecond = posts[1]
 
+  if (posts.length <= 0) {
+    return null
+  }
+
   return (
     <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <PostCard
-        isSinglePost
         slug={postSummaryFirst.slug}
         imageCover={postSummaryFirst.coverImageUrl}
         title={postSummaryFirst.title}
@@ -19,7 +22,6 @@ export async function Postsummary() {
         content={postSummaryFirst.content}
       />
       <PostCard
-        isSinglePost
         slug={postSummarySecond.slug}
         imageCover={postSummarySecond.coverImageUrl}
         title={postSummarySecond.title}
