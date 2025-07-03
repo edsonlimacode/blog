@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { ComponentProps, ComponentType, ReactNode } from "react"
+import { ComponentProps } from "react"
 
 type ButtonProps = {
   variant: "default" | "ghost" | "danger"
@@ -15,7 +15,11 @@ export function Button({ variant = "danger", ...props }: ButtonProps) {
   return (
     <button
       {...props}
-      className={clsx("rounded-md p-2 text-white", buttonVariants[variant])}
+      className={clsx(
+        "flex items-center gap-2 rounded-md px-4 py-2 text-white disabled:!cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-400 [&_svg]:h-5 [&_svg]:w-5",
+        buttonVariants[variant],
+        props.className
+      )}
     />
   )
 }

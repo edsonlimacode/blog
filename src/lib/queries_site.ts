@@ -5,7 +5,11 @@ import { cache } from "react"
 export const getAllPublicPosts = cache(
   unstable_cache(
     async () => {
-      return await postRepositoryDb.findAllPublic()
+      try {
+        return await postRepositoryDb.findAllPublic()
+      } catch (error) {
+        return []
+      }
     },
     ["posts"],
     {
