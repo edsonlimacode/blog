@@ -10,12 +10,11 @@ export function Menu() {
         target="_blank"
       >
         <HomeIcon className="h-5 w-5" />
-        Home
+        Site
       </Link>
       <Link
         href="/admin/posts"
         className="flex items-center gap-2 rounded-lg px-2 py-0.5 transition hover:bg-zinc-700"
-        target="_blank"
       >
         <File className="h-5 w-5" />
         Posts
@@ -23,7 +22,6 @@ export function Menu() {
       <Link
         href="/admin/posts/new"
         className="flex items-center gap-2 rounded-lg px-2 py-0.5 transition hover:bg-zinc-700"
-        target="_blank"
       >
         <PlusIcon className="h-5 w-5" />
         Criar posts
@@ -31,7 +29,6 @@ export function Menu() {
       <Link
         href="/admin/posts"
         className="flex items-center gap-2 rounded-lg px-2 py-0.5 transition hover:bg-zinc-700"
-        target="_blank"
       >
         <LogOut className="h-5 w-5" />
         Sair

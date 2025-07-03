@@ -1,5 +1,6 @@
 "use client"
 
+import { Button } from "@/components/button"
 import clsx from "clsx"
 
 type DialogProps = {
@@ -18,7 +19,8 @@ export function Dialog({ onConfirm, onCancel, disabled = false }: DialogProps) {
           </span>
           <p>Tem certeza que deseja deletar o post ?</p>
           <div className="flex justify-around">
-            <button
+            <Button
+              variant="danger"
               disabled={disabled}
               onClick={onCancel}
               className={clsx(
@@ -29,8 +31,9 @@ export function Dialog({ onConfirm, onCancel, disabled = false }: DialogProps) {
               )}
             >
               Cancelar
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="default"
               disabled={disabled}
               onClick={onConfirm}
               className={clsx(
@@ -41,7 +44,7 @@ export function Dialog({ onConfirm, onCancel, disabled = false }: DialogProps) {
               )}
             >
               Confirmar
-            </button>
+            </Button>
           </div>
         </div>
       </div>
