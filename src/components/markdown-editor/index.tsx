@@ -2,8 +2,6 @@
 
 import dynamic from "next/dynamic"
 import { useId } from "react"
-import rehypeSanitize from "rehype-sanitize"
-import remarkGfm from "remark-gfm"
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), {
   ssr: false

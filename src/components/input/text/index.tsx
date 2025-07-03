@@ -8,7 +8,9 @@ type InputFieldProps = {
 export function InputField({ lableText, ...props }: InputFieldProps) {
   return (
     <>
-      <label htmlFor={lableText}>{lableText}</label>
+      <label htmlFor={lableText} className="text-sm">
+        {lableText}
+      </label>
       <input
         id={lableText}
         {...props}

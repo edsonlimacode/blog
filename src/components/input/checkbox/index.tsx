@@ -7,14 +7,16 @@ type InputFieldProps = {
 
 export function InputCheckBox({ lableText, ...props }: InputFieldProps) {
   return (
-    <>
+    <div className="flex items-center gap-2">
       <input
         type="checkbox"
         id={lableText}
         {...props}
         className={clsx("h-4 w-4", props.className)}
       />
-      <label htmlFor={lableText}>{lableText}</label>
-    </>
+      <label htmlFor={lableText} className="text-sm">
+        {lableText}
+      </label>
+    </div>
   )
 }
