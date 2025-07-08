@@ -1,8 +1,8 @@
 "use client"
 
 import { Button } from "@/components/button"
-import { ImageUpIcon } from "lucide-react"
-import { useRef, useTransition } from "react"
+import { ImageUpIcon, X } from "lucide-react"
+import { useRef, useState, useTransition } from "react"
 import { toast } from "sonner"
 import { uploadImageAction } from "../../_actions/upload-image"
 
@@ -10,6 +10,7 @@ const MAX_SIZE_LIMIT_IN_BYTES = 921600
 
 export function ImageUploaded() {
   const [isPendding, startTransition] = useTransition()
+  const [imageUrlPreview, setImageUrlPreview] = useState("")
 
   const ref = useRef<HTMLInputElement>(null)
 
@@ -39,8 +40,14 @@ export function ImageUploaded() {
         toast.error(response.error)
         return
       }
+      setImageUrlPreview(response.url)
+      toast.success("Enviada com sucesso!")
+    })
+  }
 
-      toast.success(response.url)
+  async function copyToClipboard(text: string) {
+    await navigator.clipboard.writeText(text).then(() => {
+      toast.info("Url copiada!")
     })
   }
 
@@ -57,6 +64,23 @@ export function ImageUploaded() {
         className="hidden"
         accept="image/*"
       />
+      {!!imageUrlPreview && (
+        <div className="mt-4 flex flex-col gap-4">
+          <strong
+            title="Copiar url"
+            className="cursor-pointer"
+            onClick={() => copyToClipboard(imageUrlPreview)}
+          >
+            {imageUrlPreview}
+          </strong>
+          {/*  eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imageUrlPreview}
+            className="max-w-[500px] rounded object-cover"
+            alt="Preview da imagem"
+          />
+        </div>
+      )}
     </div>
   )
 }

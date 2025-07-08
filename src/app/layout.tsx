@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4">
-          <Toaster richColors position="top-center" expand />
+          <Toaster richColors position="top-center" expand closeButton />
           <Header />
           {children}
           <footer className="mt-auto">
