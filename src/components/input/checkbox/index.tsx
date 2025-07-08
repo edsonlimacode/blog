@@ -14,7 +14,7 @@ export function InputCheckBox({ lableText, ...props }: InputFieldProps) {
         {...props}
         className={clsx("h-4 w-4", props.className)}
       />
-      <label htmlFor={lableText} className="text-sm">
+      <label htmlFor={lableText} className="text-sm font-semibold">
         {lableText}
       </label>
     </div>

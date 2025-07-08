@@ -4,6 +4,9 @@ import { resolve } from "path"
 import { readFile } from "fs/promises"
 
 export class PostRepositoryLocal implements IPostRepository {
+  async findAll(): Promise<PostModal[]> {
+    throw new Error("Method not implemented.")
+  }
   private async loadFromDisk(): Promise<PostModal[]> {
     const path = resolve(process.cwd(), "src", "db", "seed", "posts.json")
 

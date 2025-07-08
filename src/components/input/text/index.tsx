@@ -8,7 +8,7 @@ type InputFieldProps = {
 export function InputField({ lableText, ...props }: InputFieldProps) {
   return (
     <>
-      <label htmlFor={lableText} className="text-sm">
+      <label htmlFor={lableText} className="text-sm font-semibold">
         {lableText}
       </label>
       <input

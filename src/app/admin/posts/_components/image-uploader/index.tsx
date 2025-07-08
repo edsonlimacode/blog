@@ -35,6 +35,7 @@ export function ImageUploaded() {
     formData.append("file", file)
 
     startTransition(async () => {
+      await new Promise((r) => setTimeout(r, 3000))
       const response = await uploadImageAction(formData)
       if (response.error) {
         toast.error(response.error)
@@ -53,7 +54,12 @@ export function ImageUploaded() {
 
   return (
     <div className="my-4">
-      <Button type="button" onClick={handleChooseFile} variant="default">
+      <Button
+        type="button"
+        disabled={isPendding}
+        onClick={handleChooseFile}
+        variant="default"
+      >
         <ImageUpIcon />
         Enviar imagem
       </Button>

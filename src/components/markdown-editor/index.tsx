@@ -27,7 +27,7 @@ export function MarkdownEditor({
   return (
     <div className="flex flex-col gap-2">
       {labelText && (
-        <label className="text-sm" htmlFor={id}>
+        <label className="text-sm font-semibold" htmlFor={id}>
           {labelText}
         </label>
       )}
