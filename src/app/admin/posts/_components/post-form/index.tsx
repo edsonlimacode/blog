@@ -8,6 +8,7 @@ import { ImageUploaded } from "../image-uploader"
 import { Button } from "@/components/button"
 import { makePartialpost, PostDto } from "../../_dto/dto"
 import { createPostAction } from "../../_actions/create-post"
+import { toast } from "sonner"
 
 type PostProps = {
   postDto?: PostDto
@@ -24,7 +25,7 @@ export function PostForm({ postDto }: PostProps) {
   )
 
   useEffect(() => {
-    console.log(state.errors)
+    state.errors.forEach((error) => toast.error(error))
   }, [state.errors])
 
   const { formState } = state

@@ -1,12 +1,10 @@
 "use server"
-
+import { v4 as uuidv4 } from "uuid"
 import { getZodErrorMessages } from "@/utils/get-zod-errors-messages"
 import { PostCreateSchema } from "../_components/post-form/_validations/validations"
 import { makePartialpost, PostDto } from "../_dto/dto"
 import { makeSlugFromText } from "@/utils/generate-slug"
-import { db } from "@/db/drizzle"
-import { postsTable } from "@/db/drizzle/schemas"
-import { revalidatePath } from "next/cache"
+import { postRepository } from "@/repositories/PostRepository"
 
 type CreatePostProps = {
   formState: PostDto
@@ -43,11 +41,24 @@ export async function createPostAction(
     updatedAt: new Date()
   }
 
-  await db.insert(postsTable).values(newPost)
-  revalidatePath("/admin/posts")
+  try {
+    await postRepository.create(newPost)
 
-  return {
-    formState: newPost,
-    errors: []
+    return {
+      formState: newPost,
+      errors: []
+    }
+  } catch (error: any) {
+    if (error instanceof Error) {
+      return {
+        formState: newPost,
+        errors: [error.message]
+      }
+    }
+
+    return {
+      formState: newPost,
+      errors: ["Erro desconhecido"]
+    }
   }
 }

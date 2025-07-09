@@ -27,6 +27,7 @@
     "sanitize-html": "^2.17.0",
     "slugify": "^1.6.6",
     "sonner": "^2.0.5",
+    "uuid": "^11.1.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

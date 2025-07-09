@@ -1,5 +1,5 @@
 {
-  "id": "01a20eb5-3591-4130-8604-06966ab9dad8",
+  "id": "50da8142-bb1c-4ba0-9b5b-251c73f54821",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -11,8 +11,9 @@
         "id": {
           "name": "id",
           "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "title": {
           "name": "title",
@@ -54,7 +55,7 @@
           "name": "published",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": true
         },
         "createdAt": {

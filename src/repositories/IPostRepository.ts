@@ -1,8 +1,14 @@
-import { PostModal } from "@/model/PostModal"
+import { PostModel } from "@/model/PostModal"
 
 export interface IPostRepository {
-  findAllPublic(): Promise<PostModal[]>
-  findAll(): Promise<PostModal[]>
-  findById(id: string): Promise<PostModal | undefined>
-  findBySlug(slug: string): Promise<PostModal | undefined>
+  findAllPublic(): Promise<PostModel[]>
+  findAll(): Promise<PostModel[]>
+  findById(id: string): Promise<PostModel | undefined>
+  findBySlug(slug: string): Promise<PostModel | undefined>
+  create(post: PostModel): Promise<PostModel>
+  delete(id: string): Promise<void>
+  update(
+    id: string,
+    newPostData: Omit<PostModel, "id" | "slug" | "createdAt" | "updatedAt">
+  ): Promise<PostModel>
 }

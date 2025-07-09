@@ -1,8 +1,8 @@
-import { PostModal } from "@/model/PostModal"
+import { PostModel } from "@/model/PostModal"
 
-export type PostDto = Omit<PostModal, "updatedAt">
+export type PostDto = Omit<PostModel, "updatedAt">
 
-export const makePartialpost = (post?: Partial<PostModal>): PostDto => {
+export const makePartialpost = (post?: Partial<PostModel>): PostDto => {
   return {
     id: post?.id || null,
     title: post?.title || "",
@@ -16,6 +16,6 @@ export const makePartialpost = (post?: Partial<PostModal>): PostDto => {
   }
 }
 
-export const postModelToDto = (post: PostModal): PostDto => {
+export const postModelToDto = (post: PostModel): PostDto => {
   return makePartialpost(post)
 }

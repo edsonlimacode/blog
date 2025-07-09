@@ -1,8 +1,8 @@
-import { postRepositoryDb } from "@/repositories/PostRepositoryDb"
+import { postRepository } from "@/repositories/PostRepository"
 import { BtnDeletePost } from "./_components/btn-delete-post"
 import Link from "next/link"
 export async function PostsList() {
-  const posts = await postRepositoryDb.findAll()
+  const posts = await postRepository.findAll()
 
   return (
     <div>

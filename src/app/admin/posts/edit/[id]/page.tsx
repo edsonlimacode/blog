@@ -1,4 +1,4 @@
-import { postRepositoryDb } from "@/repositories/PostRepositoryDb"
+import { postRepository } from "@/repositories/PostRepository"
 import { notFound } from "next/navigation"
 import { PostForm } from "../../_components/post-form"
 import { postModelToDto } from "../../_dto/dto"
@@ -10,7 +10,7 @@ type SingleProps = {
 export default async function Single({ params }: SingleProps) {
   const { id } = await params
 
-  const post = await postRepositoryDb.findById(id)
+  const post = await postRepository.findById(id)
 
   if (!post) notFound()
 
