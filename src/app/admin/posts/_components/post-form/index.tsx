@@ -3,7 +3,7 @@
 import { InputCheckBox } from "@/components/input/checkbox"
 import { InputField } from "@/components/input/text"
 import { MarkdownEditor } from "@/components/markdown-editor"
-import { useActionState, useState } from "react"
+import { useActionState, useEffect, useState } from "react"
 import { ImageUploaded } from "../image-uploader"
 import { Button } from "@/components/button"
 import { makePartialpost, PostDto } from "../../_dto/dto"
@@ -22,6 +22,10 @@ export function PostForm({ postDto }: PostProps) {
     createPostAction,
     initialValues
   )
+
+  useEffect(() => {
+    console.log(state.errors)
+  }, [state.errors])
 
   const { formState } = state
 
@@ -57,7 +61,7 @@ export function PostForm({ postDto }: PostProps) {
           setValue={setContentValue}
         />
         <InputField
-          name="string"
+          name="author"
           lableText="Autor"
           placeholder="Nome do autor"
           defaultValue={formState.author}

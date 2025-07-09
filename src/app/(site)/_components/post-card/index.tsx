@@ -3,35 +3,39 @@ import Image from "next/image"
 import Link from "next/link"
 import { ShowMarkDown } from "./show-markdown"
 import { formatDate } from "@/utils/format-date"
+import { ComponentProps } from "react"
 
-type PostCardProps = {
+type PostCardContentProps = {
   title: string
-  imageCover: string
   date: string
   content: string
   slug: string
   isSinglePost?: boolean
+} & ComponentProps<"div">
+
+export function PostCard({ ...props }: ComponentProps<"div">) {
+  return <article className="w-full" {...props} />
 }
 
-export function PostCard({
+export function PostCover({
+  alt,
+  width,
+  height,
+  ...props
+}: ComponentProps<typeof Image>) {
+  return <Image height={height} width={width} {...props} alt={alt} />
+}
+
+export function PostContent({
   title,
-  imageCover,
+  slug,
   content,
   date,
-  slug,
-  isSinglePost = false
-}: PostCardProps) {
+  isSinglePost = false,
+  ...props
+}: PostCardContentProps) {
   return (
-    <article className="w-full">
-      <Image
-        src={imageCover}
-        alt={title}
-        width={700}
-        height={700}
-        className="w-full rounded-lg object-cover"
-        priority
-        quality={100}
-      />
+    <div className="flex flex-col gap-2 py-2" {...props}>
       <div className="flex flex-col gap-2 py-2">
         <Link href={`/post/${slug}`}>
           <h2
@@ -53,6 +57,6 @@ export function PostCard({
           <ShowMarkDown content={content} />
         </div>
       </div>
-    </article>
+    </div>
   )
 }

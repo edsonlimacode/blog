@@ -1,5 +1,5 @@
 export type PostModal = {
-  id: string | null
+  id?: string
   title: string
   slug: string
   excerpt: string

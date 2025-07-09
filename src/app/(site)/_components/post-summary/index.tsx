@@ -1,7 +1,5 @@
 import { getAllPublicPosts } from "@/lib/queries_site"
-import { PostCard } from "../post-card"
-import { formatDate } from "@/utils/format-date"
-
+import { PostCard, PostContent, PostCover } from "../post-card"
 export async function Postsummary() {
   const posts = await getAllPublicPosts()
 
@@ -14,20 +12,41 @@ export async function Postsummary() {
 
   return (
     <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
-      <PostCard
-        slug={postSummaryFirst.slug}
-        imageCover={postSummaryFirst.coverImageUrl}
-        title={postSummaryFirst.title}
-        date={postSummaryFirst.createdAt.toString()}
-        content={postSummaryFirst.content}
-      />
-      <PostCard
-        slug={postSummarySecond.slug}
-        imageCover={postSummarySecond.coverImageUrl}
-        title={postSummarySecond.title}
-        date={postSummarySecond.createdAt.toString()}
-        content={postSummarySecond.content}
-      />
+      <PostCard>
+        <PostCover
+          width={500}
+          height={500}
+          className="h-[350px] w-full rounded-lg object-cover"
+          priority
+          quality={100}
+          alt={postSummaryFirst.title}
+          src={postSummaryFirst.coverImageUrl}
+        />
+        <PostContent
+          slug={postSummaryFirst.slug}
+          title={postSummaryFirst.title}
+          date={postSummaryFirst.createdAt.toString()}
+          content={postSummaryFirst.content}
+        />
+      </PostCard>
+
+      <PostCard>
+        <PostCover
+          width={500}
+          height={500}
+          className="h-[350px] w-full rounded-lg object-cover"
+          priority
+          quality={100}
+          alt={postSummarySecond.title}
+          src={postSummarySecond.coverImageUrl}
+        />
+        <PostContent
+          slug={postSummarySecond.slug}
+          title={postSummarySecond.title}
+          date={postSummarySecond.createdAt.toString()}
+          content={postSummarySecond.content}
+        />
+      </PostCard>
     </section>
   )
 }
