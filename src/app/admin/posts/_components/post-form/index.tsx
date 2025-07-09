@@ -6,7 +6,7 @@ import { MarkdownEditor } from "@/components/markdown-editor"
 import { useActionState, useState } from "react"
 import { ImageUploaded } from "../image-uploader"
 import { Button } from "@/components/button"
-import { PostDto } from "../../_dto/dto"
+import { makePartialpost, PostDto } from "../../_dto/dto"
 import { createPostAction } from "../../_actions/create-post"
 
 type PostProps = {
@@ -14,9 +14,18 @@ type PostProps = {
 }
 
 export function PostForm({ postDto }: PostProps) {
-  const [contentValue, setContentValue] = useState(postDto?.content || "")
+  const initialValues = {
+    formState: makePartialpost(postDto),
+    errors: []
+  }
+  const [state, formAction, isPedding] = useActionState(
+    createPostAction,
+    initialValues
+  )
 
-  const [state, formAction] = useActionState(createPostAction, 0)
+  const { formState } = state
+
+  const [contentValue, setContentValue] = useState(postDto?.content || "")
 
   return (
     <form action={formAction}>
@@ -26,19 +35,19 @@ export function PostForm({ postDto }: PostProps) {
           name="coverImageUrl"
           lableText="URL da capa"
           placeholder="Capa da imagem"
-          defaultValue={postDto?.coverImageUrl || ""}
+          defaultValue={formState.coverImageUrl}
         />
         <InputField
           name="title"
           lableText="Titulo"
           placeholder="Titulo"
-          defaultValue={postDto?.title || ""}
+          defaultValue={formState.title}
         />
         <InputField
           name="excerpt"
           lableText="Resumo"
           placeholder="Resumo"
-          defaultValue={postDto?.excerpt || ""}
+          defaultValue={formState.excerpt}
         />
         <MarkdownEditor
           labelText="Conteúdo"
@@ -51,11 +60,11 @@ export function PostForm({ postDto }: PostProps) {
           name="string"
           lableText="Autor"
           placeholder="Nome do autor"
-          defaultValue={postDto?.author || ""}
+          defaultValue={formState.author}
         />
         <InputCheckBox
           name="published"
-          defaultChecked={postDto?.published || false}
+          defaultChecked={formState.published}
           lableText="Publicado"
         />
         <Button

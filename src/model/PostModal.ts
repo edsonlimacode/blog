@@ -5,7 +5,7 @@ export type PostModal = {
   excerpt: string
   content: string
   coverImageUrl: string
-  published: boolean | null
+  published: boolean
   createdAt: Date
   updatedAt: Date
   author: string
