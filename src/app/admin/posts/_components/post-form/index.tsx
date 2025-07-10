@@ -9,18 +9,35 @@ import { Button } from "@/components/button"
 import { makePartialpost, PostDto } from "../../_dto/dto"
 import { createPostAction } from "../../_actions/create-post"
 import { toast } from "sonner"
+import { updatePostAction } from "../../_actions/update-post"
 
-type PostProps = {
-  postDto?: PostDto
+type UpdatePostProps = {
+  mode: "update"
+  formState: PostDto
+}
+type CreatePostProps = {
+  mode: "create"
 }
 
-export function PostForm({ postDto }: PostProps) {
+type PostManagerProps = CreatePostProps | UpdatePostProps
+
+export function PostForm(props: PostManagerProps) {
+  let publicPost
+  if (props.mode === "update") {
+    publicPost = props.formState
+  }
+
+  const actionMap = {
+    create: createPostAction,
+    update: updatePostAction
+  }
+
   const initialValues = {
-    formState: makePartialpost(postDto),
+    formState: makePartialpost(publicPost),
     errors: []
   }
   const [state, formAction, isPedding] = useActionState(
-    createPostAction,
+    actionMap[props.mode],
     initialValues
   )
 
@@ -30,12 +47,18 @@ export function PostForm({ postDto }: PostProps) {
 
   const { formState } = state
 
-  const [contentValue, setContentValue] = useState(postDto?.content || "")
+  const [contentValue, setContentValue] = useState(publicPost?.content || "")
 
   return (
     <form action={formAction}>
       <div className="flex flex-col gap-4">
         <ImageUploaded />
+        <InputField
+          name="id"
+          className="hidden"
+          lableText=""
+          defaultValue={formState.id}
+        />
         <InputField
           name="coverImageUrl"
           lableText="URL da capa"
@@ -74,6 +97,7 @@ export function PostForm({ postDto }: PostProps) {
         />
         <Button
           type="submit"
+          disabled={isPedding}
           variant="default"
           className="flex items-center justify-center !bg-blue-500"
         >
