@@ -3,12 +3,18 @@ import { Button } from "@/components/button"
 import { InputField } from "@/components/input/text"
 import { LoginFormData, useLoginFormHook } from "./login-use-form-hook"
 import { signIn } from "../_actions/login-action"
+import { toast } from "sonner"
 
 export default function SignIn() {
   const form = useLoginFormHook()
 
   async function onSubmit(formData: LoginFormData) {
-    await signIn(formData)
+    const response = await signIn(formData)
+
+    if (response.error) {
+      toast.error(response.error)
+      return
+    }
   }
 
   return (

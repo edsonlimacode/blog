@@ -9,9 +9,9 @@ import { ImageUploaded } from "../image-uploader"
 import { Button } from "@/components/button"
 import { PostDto } from "../../_dto/dto"
 import dynamic from "next/dynamic"
-import { updatePostActionTeste } from "../../_actions/update"
+import { updatePostAction } from "../../_actions/update"
 import { toast } from "sonner"
-import { createPostActionTeste } from "../../_actions/create"
+import { createPostAction } from "../../_actions/create"
 import { PostFormData, usePostFormHook } from "./post-use-form-hook"
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), {
@@ -38,7 +38,7 @@ export function PostForm({ post }: PostProps) {
 
   async function onSubmit(formData: PostFormData) {
     if (post?.id) {
-      const response = await updatePostActionTeste(post.id, formData)
+      const response = await updatePostAction(post.id, formData)
 
       if (response.error) {
         toast.error(response.error)
@@ -47,7 +47,7 @@ export function PostForm({ post }: PostProps) {
 
       toast.success(response.success)
     } else {
-      const response = await createPostActionTeste(formData)
+      const response = await createPostAction(formData)
       if (response.error) {
         toast.error(response.error)
         return

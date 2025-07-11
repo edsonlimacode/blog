@@ -9,7 +9,7 @@ type UpdatePostAction = {
   error?: string
 }
 
-export async function updatePostActionTeste(
+export async function updatePostAction(
   id: string,
   formData: PostFormData
 ): Promise<UpdatePostAction> {

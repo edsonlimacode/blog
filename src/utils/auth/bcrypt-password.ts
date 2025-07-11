@@ -20,5 +20,4 @@ export async function verifyPassword(password: string, hashPassword: string) {
     pass,
     "JDJiJDEwJFdxazl6NDFqZmxSaXBSRmQ0eERBNnUvVkxyTlc3TXJuTUZ0TVpMNm9SRE5admZ3Tzh6Nmc2"
   )
-  console.log(isValid)
 })()

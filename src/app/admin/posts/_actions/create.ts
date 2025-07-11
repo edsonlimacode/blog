@@ -8,7 +8,7 @@ type CreatePostAction = {
   error?: string
 }
 
-export async function createPostActionTeste(
+export async function createPostAction(
   formData: PostFormData
 ): Promise<CreatePostAction> {
   const newPost = {
