@@ -1,103 +1,113 @@
 "use client"
 
+import { Controller } from "react-hook-form"
+
 import { InputCheckBox } from "@/components/input/checkbox"
 import { InputField } from "@/components/input/text"
-import { MarkdownEditor } from "@/components/markdown-editor"
-import { useActionState, useEffect, useState } from "react"
+import { useEffect } from "react"
 import { ImageUploaded } from "../image-uploader"
 import { Button } from "@/components/button"
-import { makePartialpost, PostDto } from "../../_dto/dto"
-import { createPostAction } from "../../_actions/create-post"
+import { PostDto } from "../../_dto/dto"
+import dynamic from "next/dynamic"
+import { updatePostActionTeste } from "../../_actions/update"
 import { toast } from "sonner"
-import { updatePostAction } from "../../_actions/update-post"
+import { createPostActionTeste } from "../../_actions/create"
+import { PostFormData, usePostFormHook } from "./post-use-form-hook"
 
-type UpdatePostProps = {
-  mode: "update"
-  formState: PostDto
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), {
+  ssr: false
+})
+
+type PostProps = {
+  post?: PostDto
 }
-type CreatePostProps = {
-  mode: "create"
-}
 
-type PostManagerProps = CreatePostProps | UpdatePostProps
-
-export function PostForm(props: PostManagerProps) {
-  let publicPost
-  if (props.mode === "update") {
-    publicPost = props.formState
-  }
-
-  const actionMap = {
-    create: createPostAction,
-    update: updatePostAction
-  }
-
-  const initialValues = {
-    formState: makePartialpost(publicPost),
-    errors: []
-  }
-  const [state, formAction, isPedding] = useActionState(
-    actionMap[props.mode],
-    initialValues
-  )
+export function PostForm({ post }: PostProps) {
+  const form = usePostFormHook()
 
   useEffect(() => {
-    state.errors.forEach((error) => toast.error(error))
-  }, [state.errors])
+    if (post?.id) {
+      form.setValue("title", post.title)
+      form.setValue("coverImageUrl", post.coverImageUrl)
+      form.setValue("content", post.content)
+      form.setValue("author", post.author)
+      form.setValue("excerpt", post.excerpt)
+      form.setValue("published", post.published)
+    }
+  }, [post?.id])
 
-  const { formState } = state
+  async function onSubmit(formData: PostFormData) {
+    if (post?.id) {
+      const response = await updatePostActionTeste(post.id, formData)
 
-  const [contentValue, setContentValue] = useState(publicPost?.content || "")
+      if (response.error) {
+        toast.error(response.error)
+        return
+      }
+
+      toast.success(response.success)
+    } else {
+      const response = await createPostActionTeste(formData)
+      if (response.error) {
+        toast.error(response.error)
+        return
+      }
+      toast.success(response.success)
+    }
+  }
 
   return (
-    <form action={formAction}>
+    <form onSubmit={form.handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
         <ImageUploaded />
+
         <InputField
-          name="id"
-          className="hidden"
-          lableText=""
-          defaultValue={formState.id}
-        />
-        <InputField
-          name="coverImageUrl"
           lableText="URL da capa"
           placeholder="Capa da imagem"
-          defaultValue={formState.coverImageUrl}
+          {...form.register("coverImageUrl")}
         />
         <InputField
-          name="title"
+          {...form.register("title")}
           lableText="Titulo"
           placeholder="Titulo"
-          defaultValue={formState.title}
         />
         <InputField
-          name="excerpt"
+          {...form.register("excerpt")}
           lableText="Resumo"
           placeholder="Resumo"
-          defaultValue={formState.excerpt}
         />
-        <MarkdownEditor
-          labelText="Conteúdo"
-          disabled={false}
-          textAreaName="content"
-          value={contentValue}
-          setValue={setContentValue}
+
+        <Controller
+          name="content"
+          control={form.control}
+          render={({ field }) => (
+            <div data-color-mode="light">
+              <label className="text-sm font-semibold" htmlFor="content">
+                Conteudo
+              </label>
+              <MDEditor
+                className="whitespace-pre-wrap"
+                {...field}
+                height={400}
+                extraCommands={[]}
+                preview="edit"
+                hideToolbar={false}
+                textareaProps={{
+                  id: "content"
+                }}
+              />
+            </div>
+          )}
         />
         <InputField
-          name="author"
+          {...form.register("author")}
           lableText="Autor"
           placeholder="Nome do autor"
-          defaultValue={formState.author}
         />
-        <InputCheckBox
-          name="published"
-          defaultChecked={formState.published}
-          lableText="Publicado"
-        />
+        <InputCheckBox {...form.register("published")} lableText="Publicado" />
         <Button
           type="submit"
-          disabled={isPedding}
+          disabled={form.formState.isSubmitting}
           variant="default"
           className="flex items-center justify-center !bg-blue-500"
         >

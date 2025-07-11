@@ -25,7 +25,7 @@ export function MarkdownEditor({
   const id = useId()
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2" data-color-mode="light">
       {labelText && (
         <label className="text-sm font-semibold" htmlFor={id}>
           {labelText}

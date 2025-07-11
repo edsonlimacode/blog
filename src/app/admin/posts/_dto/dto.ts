@@ -4,7 +4,7 @@ export type PostDto = Omit<PostModel, "updatedAt">
 
 export const makePartialpost = (post?: Partial<PostModel>): PostDto => {
   return {
-    id: post?.id || null,
+    id: post?.id || "",
     title: post?.title || "",
     slug: post?.slug || "",
     excerpt: post?.excerpt || "",

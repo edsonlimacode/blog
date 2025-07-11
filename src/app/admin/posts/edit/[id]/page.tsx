@@ -18,7 +18,7 @@ export default async function Single({ params }: SingleProps) {
 
   return (
     <div>
-      <PostForm mode="update" formState={postDto} />
+      <PostForm post={postDto} />
     </div>
   )
 }
