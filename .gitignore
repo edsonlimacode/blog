@@ -19,6 +19,8 @@ teste.ts
 /.next/
 /out/
 
+.vscode
+
 # production
 /build
 

@@ -30,7 +30,6 @@ export default function RootLayout({
             expand
             closeButton
           />
-          <Header />
           {children}
           <footer className="mt-auto">
             @copyright {new Date().getFullYear()}
