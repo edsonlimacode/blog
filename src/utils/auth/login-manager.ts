@@ -33,7 +33,7 @@ export async function verifyLoginSession() {
 
   if (!jwtPayload) return
 
-  return jwtPayload?.username === process.env.LOGIN_USERNAME
+  return jwtPayload?.userName === process.env.LOGIN_USERNAME
 }
 
 export async function requireLoginSessionOrRedirect() {

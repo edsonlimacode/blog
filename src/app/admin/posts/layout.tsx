@@ -7,7 +7,7 @@ export default async function PostsLayout({
 }: {
   children: ReactNode
 }) {
-  await requireLoginSessionOrRedirect()
+  //await requireLoginSessionOrRedirect()
 
   return (
     <>
