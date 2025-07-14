@@ -1,5 +1,6 @@
 import { cookies } from "next/headers"
-import { jwtSignIn } from "./jwt-manager"
+import { jwtSignIn, verifyJwt } from "./jwt-manager"
+import { redirect } from "next/navigation"
 
 const expiresTimeInMiliSeconds = process.env.EXPIRES_IN_MILISECONDS as string
 
@@ -15,6 +16,32 @@ export async function createLoginSession(userName: string) {
     secure: true,
     sameSite: "strict"
   })
+}
+
+export async function getLoginSession() {
+  const cookie = await cookies()
+
+  const jwt = await cookie.get("theblog:session")?.value
+
+  if (!jwt) return
+
+  return await verifyJwt(jwt)
+}
+
+export async function verifyLoginSession() {
+  const jwtPayload = await getLoginSession()
+
+  if (!jwtPayload) return
+
+  return jwtPayload?.username === process.env.LOGIN_USERNAME
+}
+
+export async function requireLoginSessionOrRedirect() {
+  const isAuthenticated = await verifyLoginSession()
+
+  if (!isAuthenticated) {
+    redirect("/auth/login")
+  }
 }
 
 export async function deleteLoginSession() {

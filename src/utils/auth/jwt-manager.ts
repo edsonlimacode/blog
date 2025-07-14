@@ -18,3 +18,16 @@ export async function jwtSignIn(payload: JwtPayload) {
     .setExpirationTime(expiresAt)
     .sign(jwtEncodedKey)
 }
+
+export async function verifyJwt(jwt: string | undefined = "") {
+  try {
+    const { payload } = await jwtVerify(jwt, jwtEncodedKey, {
+      algorithms: ["HS256"]
+    })
+
+    return payload
+  } catch (error: any) {
+    console.log(error?.message)
+    return false
+  }
+}

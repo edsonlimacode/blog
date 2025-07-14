@@ -1,5 +1,6 @@
 "use server"
 
+import { verifyLoginSession } from "@/utils/auth/login-manager"
 import { mkdir, writeFile } from "fs/promises"
 import { extname, resolve } from "path"
 
@@ -11,6 +12,15 @@ type UploadImageResult = {
 export async function uploadImageAction(
   formData: FormData
 ): Promise<UploadImageResult> {
+  const isAuthenticated = await verifyLoginSession()
+
+  if (!isAuthenticated) {
+    return {
+      url: "",
+      error: "Faça login novamente em outra aba para continuar"
+    }
+  }
+
   const imageTypesPermissions = ["image/png", "image/jpg", "image/jpeg"]
   const Response = ({ url = "", error = "" }) => ({ url, error })
 

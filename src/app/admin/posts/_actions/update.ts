@@ -3,6 +3,7 @@ import { postRepository } from "@/repositories/PostRepository"
 import { revalidatePath } from "next/cache"
 import { makeSlugFromText } from "@/utils/generate-slug"
 import { PostFormData } from "../_components/post-form/post-use-form-hook"
+import { verifyLoginSession } from "@/utils/auth/login-manager"
 
 type UpdatePostAction = {
   success?: string
@@ -13,6 +14,14 @@ export async function updatePostAction(
   id: string,
   formData: PostFormData
 ): Promise<UpdatePostAction> {
+  const isAuthenticated = await verifyLoginSession()
+
+  if (!isAuthenticated) {
+    return {
+      error: "Faça login novamente em outra aba para continuar"
+    }
+  }
+
   try {
     const updatePost = {
       ...formData,

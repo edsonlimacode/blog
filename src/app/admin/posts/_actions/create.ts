@@ -2,6 +2,7 @@
 import { makeSlugFromText } from "@/utils/generate-slug"
 import { postRepository } from "@/repositories/PostRepository"
 import { PostFormData } from "../_components/post-form/post-use-form-hook"
+import { verifyLoginSession } from "@/utils/auth/login-manager"
 
 type CreatePostAction = {
   success?: string
@@ -11,6 +12,14 @@ type CreatePostAction = {
 export async function createPostAction(
   formData: PostFormData
 ): Promise<CreatePostAction> {
+  const isAuthenticated = await verifyLoginSession()
+
+  if (!isAuthenticated) {
+    return {
+      error: "Faça login novamente em outra aba para continuar"
+    }
+  }
+
   const newPost = {
     ...formData,
     slug: makeSlugFromText(formData.title),
