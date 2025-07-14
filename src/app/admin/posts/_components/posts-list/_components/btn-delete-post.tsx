@@ -8,7 +8,7 @@ import { Dialog } from "@/app/admin/_components/dialog"
 import { toast } from "sonner"
 
 type BtnDeletePostProps = {
-  id: string | null
+  id: string | undefined
 }
 
 export function BtnDeletePost({ id }: BtnDeletePostProps) {
