@@ -4,6 +4,7 @@ import { InputField } from "@/components/input/text"
 import { LoginFormData, useLoginFormHook } from "./login-use-form-hook"
 import { signIn } from "../_actions/login-action"
 import { toast } from "sonner"
+import Link from "next/link"
 
 export default function SignIn() {
   const form = useLoginFormHook()
@@ -39,6 +40,9 @@ export default function SignIn() {
         >
           Entrar
         </Button>
+        <Link href="/auth/register" className="mt-4 self-start font-semibold">
+          Registre-se
+        </Link>
       </form>
     </div>
   )

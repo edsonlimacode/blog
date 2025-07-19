@@ -6,10 +6,12 @@ import z from "zod"
 const LoginSchema = z.object({
   login: z
     .string()
+    .trim()
     .min(3, { message: "Login deve conter no minimo 3 caracteres" }),
   password: z
     .string()
-    .min(4, { message: "Senha deve conter no minimo 3 caracteres" })
+    .trim()
+    .min(6, { message: "Senha deve conter no minimo 4 caracteres" })
 })
 
 export type LoginFormData = z.infer<typeof LoginSchema>
