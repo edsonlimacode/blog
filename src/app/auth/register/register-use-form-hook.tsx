@@ -21,7 +21,7 @@ const RegisterSchema = z
     password2: z
       .string()
       .trim()
-      .min(6, { message: "Senha deve conter no minimo 6 caracteres" })
+      .min(6, { message: "Senha repetida deve conter no minimo 6 caracteres" })
   })
   .refine(
     (data) => {

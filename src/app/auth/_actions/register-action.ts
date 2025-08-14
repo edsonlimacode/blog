@@ -1,34 +1,16 @@
 "use server"
 
+import { api } from "@/lib/fetch-wrapper"
 import { RegisterFormData } from "../register/register-use-form-hook"
 
 export async function registerNewUser(formData: RegisterFormData) {
-  const baseurl = process.env.API_BASEURL as string
+  const response = await api("/user", {
+    method: "POST",
+    body: JSON.stringify(formData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
 
-  try {
-    const response = await fetch(`${baseurl}/user`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formData)
-    })
-
-    const result = await response.json()
-
-    if (!response.ok) {
-      return {
-        error: result.message
-      }
-    }
-
-    return {
-      data: result
-    }
-  } catch (error: any) {
-    console.log(error)
-    return {
-      error: "Erro ao tentar se comunicar com o servidor"
-    }
-  }
+  return response
 }

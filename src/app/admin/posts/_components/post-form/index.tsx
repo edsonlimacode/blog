@@ -2,13 +2,13 @@
 
 import { Controller } from "react-hook-form"
 
+import dynamic from "next/dynamic"
 import { InputCheckBox } from "@/components/input/checkbox"
 import { InputField } from "@/components/input/text"
 import { useEffect } from "react"
 import { ImageUploaded } from "../image-uploader"
 import { Button } from "@/components/button"
 import { PostDto } from "../../_dto/dto"
-import dynamic from "next/dynamic"
 import { updatePostAction } from "../../_actions/update"
 import { toast } from "sonner"
 import { createPostAction } from "../../_actions/create"

@@ -25,7 +25,7 @@ export default function RootLayout({
         <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4">
           <Toaster
             richColors
-            duration={2000}
+            duration={3000}
             position="top-center"
             expand
             closeButton

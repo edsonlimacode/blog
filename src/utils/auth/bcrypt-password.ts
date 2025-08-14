@@ -18,6 +18,8 @@ export async function verifyPassword(password: string, hashPassword: string) {
   const hash = await hashPassword(pass)
   const isValid = await verifyPassword(
     pass,
-    "JDJiJDEwJFdxazl6NDFqZmxSaXBSRmQ0eERBNnUvVkxyTlc3TXJuTUZ0TVpMNm9SRE5admZ3Tzh6Nmc2"
+    "JDJiJDEwJFY5TnBHclBUcWFFS0U0ZWcwOWdoaU96YlJnZnV3TTZjM2hmSC5xQ2RDazFiNnExNGNLUmh1"
   )
+
+  console.log(isValid)
 })()

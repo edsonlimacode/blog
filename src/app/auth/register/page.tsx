@@ -1,9 +1,9 @@
 "use client"
+import Link from "next/link"
 import { Button } from "@/components/button"
 import { InputField } from "@/components/input/text"
 import { toast } from "sonner"
 import { RegisterFormData, useRegisterFormHook } from "./register-use-form-hook"
-import Link from "next/link"
 import { ArrowLeftIcon } from "lucide-react"
 import { registerNewUser } from "../_actions/register-action"
 import { useEffect } from "react"
@@ -12,18 +12,24 @@ export default function Register() {
   const form = useRegisterFormHook()
 
   useEffect(() => {
-    console.log(form.formState.errors)
+    if (form.formState.errors.name)
+      toast.error(form.formState.errors.name.message)
+    if (form.formState.errors.email)
+      toast.error(form.formState.errors.email.message)
+    if (form.formState.errors.password)
+      toast.error(form.formState.errors.password.message)
+    if (form.formState.errors.password2)
+      toast.error(form.formState.errors.password2.message)
   }, [form.formState.errors])
 
   async function onSubmit(formData: RegisterFormData) {
     const response = await registerNewUser(formData)
-    if (response?.error) {
-      for (const erro of response.error) {
+    console.log(response.data)
+    if (response?.errors) {
+      for (const erro of response.errors) {
         toast.error(erro)
       }
     }
-
-    console.log(response.data)
   }
 
   return (
