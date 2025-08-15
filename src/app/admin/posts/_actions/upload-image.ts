@@ -1,6 +1,6 @@
 "use server"
 
-import { verifyLoginSession } from "@/utils/auth/login-manager"
+import { getUserLoginSession } from "@/utils/auth/login-manager"
 import { mkdir, writeFile } from "fs/promises"
 import { extname, resolve } from "path"
 
@@ -12,7 +12,7 @@ type UploadImageResult = {
 export async function uploadImageAction(
   formData: FormData
 ): Promise<UploadImageResult> {
-  const isAuthenticated = await verifyLoginSession()
+  const isAuthenticated = await getUserLoginSession()
 
   if (!isAuthenticated) {
     return {

@@ -1,11 +1,11 @@
 "use server"
 
 import { postRepository } from "@/repositories/PostRepository"
-import { verifyLoginSession } from "@/utils/auth/login-manager"
+import { getUserLoginSession } from "@/utils/auth/login-manager"
 import { revalidatePath } from "next/cache"
 
 export async function deletePostAction(id: string) {
-  const isAuthenticated = await verifyLoginSession()
+  const isAuthenticated = await getUserLoginSession()
 
   if (!isAuthenticated) {
     return {

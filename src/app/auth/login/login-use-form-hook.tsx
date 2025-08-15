@@ -4,10 +4,9 @@ import { useForm } from "react-hook-form"
 import z from "zod"
 
 const LoginSchema = z.object({
-  login: z
-    .string()
-    .trim()
-    .min(3, { message: "Login deve conter no minimo 3 caracteres" }),
+  email: z.string()
+    .min(3, { message: "Login deve conter no minimo 3 caracteres" })
+    .email({message: "E-mail inválido"}),
   password: z
     .string()
     .trim()
@@ -20,7 +19,7 @@ export function useLoginFormHook() {
   return useForm({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      login: "",
+      email: "",
       password: ""
     }
   })

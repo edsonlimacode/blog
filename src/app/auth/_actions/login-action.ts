@@ -1,28 +1,23 @@
 "use server"
 
-import { verifyPassword } from "@/utils/auth/bcrypt-password"
-import { LoginFormData } from "../login/login-use-form-hook"
-import { redirect } from "next/navigation"
 import { createLoginSession } from "@/utils/auth/login-manager"
+import { LoginFormData } from "../login/login-use-form-hook"
+import { api } from "@/lib/fetch-wrapper"
+import { redirect } from "next/navigation"
 
 export async function signIn(formData: LoginFormData) {
-  const username = process.env.LOGIN_USERNAME as string
-  const password = process.env.PASSWORD as string
-
-  if (formData.login != username) {
-    return {
-      error: "E-mail ou senha inválidos"
+  const response = await api("/auth/login", {
+    method: "POST",
+    body: JSON.stringify(formData),
+    headers: {
+      "Content-Type": "application/json"
     }
+  })
+
+  if (response.errors) {
+    return response.errors
   }
 
-  const isPasswordValid = await verifyPassword(formData.password, password)
-
-  if (formData.login === username && !isPasswordValid) {
-    return {
-      error: "E-mail ou senha inválidos"
-    }
-  }
-
-  await createLoginSession(username)
+  await createLoginSession(response.data?.accessToken)
   redirect("/admin/posts")
 }

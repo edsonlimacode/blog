@@ -12,10 +12,13 @@ export default function SignIn() {
   async function onSubmit(formData: LoginFormData) {
     const response = await signIn(formData)
 
-    if (response.error) {
-      toast.error(response.error)
-      return
+    if(response.errors){
+      for(const erro of response.errors){
+        toast.error(erro)
+      }
     }
+
+    
   }
 
   return (
@@ -24,7 +27,7 @@ export default function SignIn() {
         <InputField
           lableText="Login"
           className="mt-2"
-          {...form.register("login")}
+          {...form.register("email")}
           placeholder="Digite seu login"
         />
         <InputField
