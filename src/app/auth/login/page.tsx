@@ -5,20 +5,22 @@ import { LoginFormData, useLoginFormHook } from "./login-use-form-hook"
 import { signIn } from "../_actions/login-action"
 import { toast } from "sonner"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export default function SignIn() {
   const form = useLoginFormHook()
+  const router = useRouter()
 
   async function onSubmit(formData: LoginFormData) {
     const response = await signIn(formData)
 
-    if(response.errors){
+    if(response?.errors){
       for(const erro of response.errors){
         toast.error(erro)
       }
     }
 
-    
+    router.push("/admin/posts")
   }
 
   return (

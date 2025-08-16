@@ -7,9 +7,11 @@ import { RegisterFormData, useRegisterFormHook } from "./register-use-form-hook"
 import { ArrowLeftIcon } from "lucide-react"
 import { registerNewUser } from "../_actions/register-action"
 import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function Register() {
   const form = useRegisterFormHook()
+  const router = useRouter()
 
   useEffect(() => {
     if (form.formState.errors.name)
@@ -24,12 +26,15 @@ export default function Register() {
 
   async function onSubmit(formData: RegisterFormData) {
     const response = await registerNewUser(formData)
-    console.log(response.data)
+    
     if (response?.errors) {
       for (const erro of response.errors) {
         toast.error(erro)
       }
     }
+
+    router.push("/auth/login")
+
   }
 
   return (
